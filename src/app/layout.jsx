@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import GlobalProvider from "../context/globalContext";
 import AdminProvider from "@/context/adminContext";
+import DkhpProvider from "@/context/dkhpContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +27,9 @@ export default function RootLayout({ children }) {
       <body className='overflow-hidden bg-[white]'>
         <GlobalProvider>
           <AdminProvider>
-            {children}
+            <DkhpProvider>
+              {children}
+            </DkhpProvider>
           </AdminProvider>
         </GlobalProvider>
       </body>

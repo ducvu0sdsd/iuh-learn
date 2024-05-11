@@ -24,10 +24,10 @@ export default function Home() {
         globalHandler.notify(notifyType.SUCCESS, "Authenticated")
         globalHandler.setStudent(res.student)
         setLoading(false)
-        if (res?.student?.username.includes('admin')) {
-          router.push("/student-management")
+        if (username.includes('admin')) {
+          router.push("/quan-ly-sinh-vien")
         } else {
-          router.push("/general-information")
+          router.push("/thong-tin-chung")
         }
       })
       .catch(res => {

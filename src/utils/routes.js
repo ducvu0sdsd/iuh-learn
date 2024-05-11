@@ -1,4 +1,6 @@
 export const ports = {
     authServiceURL: 8081,
-    userServiceURL: 8082
+    otherServiceURL: 8082,
+    studyServiceURL: 8083, // NodeJS
+    dkhpServiceURL: 8084,
 }

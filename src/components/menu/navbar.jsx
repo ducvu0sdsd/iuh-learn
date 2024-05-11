@@ -23,23 +23,25 @@ const Navbar = () => {
                 <img src='/logo.png' width={'45px'} />
                 <span className='text-[12px] w-[200px] font-medium translate-y-[5px]'>INDUSTRIAL UNIVERSITY OF HOCHIMINH CITY</span>
             </div>
-            {!globalData.student?.username.includes('admin') ?
+            {!globalData.student?.username?.includes('admin') ?
                 (<>
-                    <Link href={'/general-information'}>
+                    <Link href={'/thong-tin-chung'}>
                         <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
                             <img src='/student.png' width={'32px'} />
                             <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Thông Tin Chung</span>
                         </div>
                     </Link>
-                    <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
-                        <img src='/signup.png' width={'32px'} />
-                        <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Đăng Kí Học Phần</span>
-                    </div>
+                    <Link href={"/dang-ky-hoc-phan"}>
+                        <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
+                            <img src='/signup.png' width={'32px'} />
+                            <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Đăng Ký Học Phần</span>
+                        </div>
+                    </Link>
                     <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
                         <img src='/search.png' width={'32px'} />
                         <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Tra Cứu Công Nợ</span>
                     </div>
-                    <Link href={'/academic-calendar'}>
+                    <Link href={'/lich-hoc'}>
                         <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
                             <img src='/calendar.png' width={'32px'} />
                             <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Lịch</span>
@@ -48,10 +50,58 @@ const Navbar = () => {
                 </>)
                 :
                 (<>
-                    <Link href={'/student-management'}>
+                    <Link href={'/quan-ly-sinh-vien'}>
                         <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
                             <img src='/calendar.png' width={'32px'} />
                             <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Quản Lý Sinh Viên</span>
+                        </div>
+                    </Link>
+                    <Link href={'/quan-ly-khoa'}>
+                        <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
+                            <img src='/calendar.png' width={'32px'} />
+                            <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Quản Lý Khoa</span>
+                        </div>
+                    </Link>
+                    <Link href={'/quan-ly-chuyen-nganh'}>
+                        <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
+                            <img src='/calendar.png' width={'32px'} />
+                            <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Quản Lý Chuyên Ngành</span>
+                        </div>
+                    </Link>
+                    <Link href={'/quan-ly-he-dao-tao'}>
+                        <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
+                            <img src='/calendar.png' width={'32px'} />
+                            <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Quản Lý Hệ Đào Tạo</span>
+                        </div>
+                    </Link>
+                    <Link href={'/quan-ly-lop'}>
+                        <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
+                            <img src='/calendar.png' width={'32px'} />
+                            <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Quản Lý Lớp</span>
+                        </div>
+                    </Link>
+                    <Link href={'/quan-ly-giao-vien'}>
+                        <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
+                            <img src='/calendar.png' width={'32px'} />
+                            <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Quản Lý Giáo Viên</span>
+                        </div>
+                    </Link>
+                    <Link href={'/quan-ly-mon-hoc'}>
+                        <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
+                            <img src='/calendar.png' width={'32px'} />
+                            <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Quản Lý Môn Học</span>
+                        </div>
+                    </Link>
+                    <Link href={'/quan-ly-hoc-ky'}>
+                        <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
+                            <img src='/calendar.png' width={'32px'} />
+                            <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Quản Lý Học Kỳ</span>
+                        </div>
+                    </Link>
+                    <Link href={'/quan-ly-hoc-phan'}>
+                        <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
+                            <img src='/calendar.png' width={'32px'} />
+                            <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Quản Lý Học Phần</span>
                         </div>
                     </Link>
                 </>)

@@ -39,10 +39,10 @@ const GlobalProvider = ({ children }) => {
                 api({ sendToken: true, type: TypeHTTP.POST, path: "/authentication-token", port: ports.authServiceURL })
                     .then(res => {
                         setStudent(res)
-                        if (res?.username.includes("admin")) {
-                            router.push("/student-management")
+                        if (res?.username?.includes("admin")) {
+                            router.push("/quan-ly-sinh-vien")
                         } else {
-                            router.push("/general-information")
+                            router.push("/thong-tin-chung")
                         }
                     })
             }
@@ -51,7 +51,12 @@ const GlobalProvider = ({ children }) => {
                 router.push("/")
             api({ sendToken: true, type: TypeHTTP.POST, path: "/authentication-token", port: ports.authServiceURL })
                 .then(res => {
-                    setStudent(res)
+                    if (res) {
+                        setStudent(res)
+                    } else {
+                        router.push("/")
+                        globalThis.localStorage.removeItem("accessToken")
+                    }
                 })
                 .catch(res => {
                     router.push("/")
@@ -61,13 +66,20 @@ const GlobalProvider = ({ children }) => {
 
     const notify = (status, message) => setInfo({ status, message })
 
+    const reload = () => {
+        setTimeout(() => {
+            globalThis.window.location.reload()
+        }, 1000);
+    }
+
     const data = {
         student, info
     }
 
     const handler = {
         setStudent,
-        notify
+        notify,
+        reload
     }
 
     return (

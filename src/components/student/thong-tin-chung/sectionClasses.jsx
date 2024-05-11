@@ -39,6 +39,7 @@ const SectionClasses = () => {
         }
     ]
 
+
     return (
         <div className='border-[1px] rounded-lg px-[20px] py-[10px] flex flex-col gap-3 h-full overflow-auto'>
             <div className='w-full flex justify-between'>

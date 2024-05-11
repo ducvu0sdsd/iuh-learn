@@ -1,5 +1,5 @@
-import Information from '@/components/general-information/information'
-import SectionClasses from '@/components/general-information/sectionClasses'
+import Information from '@/components/student/thong-tin-chung/information'
+import SectionClasses from '@/components/student/thong-tin-chung/sectionClasses'
 import Header from '@/components/header'
 import Navbar from '@/components/menu/navbar'
 import React from 'react'

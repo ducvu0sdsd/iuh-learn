@@ -22,7 +22,7 @@ const Information = () => {
                 <div className='flex flex-col gap-2 ml-[4rem]'>
                     <div className='flex'>
                         <label className="w-[100px] font-semibold text-[14px]">MSSV:</label>
-                        <span className='text-[14px]'>{student?.username}</span>
+                        <span className='text-[14px]'>{student?.mssv}</span>
                     </div>
                     <div className='flex'>
                         <label className="w-[100px] font-semibold text-[14px]">Họ tên:</label>
@@ -45,23 +45,23 @@ const Information = () => {
                 <div className='flex flex-col gap-2 ml-[5rem]'>
                     <div className='flex'>
                         <label className="w-[140px] font-semibold text-[14px]">Lớp học:</label>
-                        <span className='text-[14px]'>{student?.lopHoc}</span>
+                        <span className='text-[14px]'>{student?.lop.tenLop}</span>
                     </div>
                     <div className='flex'>
                         <label className="w-[140px] font-semibold text-[14px]">Khóa học:</label>
-                        <span className='text-[14px]'>{student?.nienKhoa}</span>
+                        <span className='text-[14px]'>{`${new Date().getFullYear()} - ${new Date().getFullYear() + 4}`}</span>
                     </div>
                     <div className='flex'>
                         <label className="w-[140px] font-semibold text-[14px]">Loại hình đào tạo:</label>
-                        <span className='text-[14px]'>{student?.loaiHinhDaoTao}</span>
+                        <span className='text-[14px]'>Đại Học</span>
                     </div>
                     <div className='flex'>
                         <label className="w-[140px] font-semibold text-[14px]">Bậc đào tạo:</label>
-                        <span className='text-[14px]'>{student?.bacDaoTao}</span>
+                        <span className='text-[14px]'>{student?.lop.heDaoTao.tenHeDaoTao}</span>
                     </div>
                     <div className='flex'>
                         <label className="w-[140px] font-semibold text-[14px]">Ngành:</label>
-                        <span className='text-[14px]'>{student?.nganh}</span>
+                        <span className='text-[14px]'>{student?.lop.chuyenNganh.tenChuyenNganh}</span>
                     </div>
                 </div>
             </div>

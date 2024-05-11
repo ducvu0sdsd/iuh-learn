@@ -1,4 +1,4 @@
-import Schedule from '@/components/academic-calendar/schedule'
+import Schedule from '@/components/student/lich-hoc/schedule'
 import Header from '@/components/header'
 import Navbar from '@/components/menu/navbar'
 import React from 'react'
