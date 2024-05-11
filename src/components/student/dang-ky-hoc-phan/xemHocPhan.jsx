@@ -23,23 +23,11 @@ const XemHocPhan = () => {
     const [dsHocPhanDaDangKy, setDsHocPhanDaDangKy] = useState([])
 
     useEffect(() => {
-        api({ type: TypeHTTP.GET, sendToken: true, port: ports.dkhpServiceURL, path: `/dkhp?mssv=${globalData.student?.mssv}&maHocKy=${maHocKy}` })
+        api({ type: TypeHTTP.GET, sendToken: true, port: ports.dkhpServiceURL, path: `/dkhp/get-by-mhk-mssv?mssv=${globalData.student?.mssv}&maHocKy=${maHocKy}` })
             .then(hocphans => {
-                api({ port: ports.studyServiceURL, sendToken: true, type: TypeHTTP.GET, path: '/study/get-all-thong-tin-hoc-phan' })
-                    .then(dsLichHoc => {
-
-                        setDsHocPhanDaDangKy(() => {
-                            const ds = hocphans.filter(hocphan => {
-                                const lich = dsLichHoc.filter(item => item.maHocPhan + "" === hocphan.hocPhan.maHocPhan + "")[0]
-                                if (lich) {
-                                    hocphan.hocPhan.thongTin = { tietLyThuyet: lich.tietLyThuyet, tietThucHanh: lich.tietThucHanh, batBuoc: lich.batBuoc, tienQuyet: lich.tienQuyet, hocTruoc: lich.hocTruoc, songHanh: lich.songHanh, trangThai: lich.trangThai, ngayDangKy: lich.createdAt }
-                                }
-                                return hocphan
-                            })
-                            dkhpHandler.setDsHocPhanDaDangKy(ds)
-                            return ds
-                        })
-                    })
+                console.log(hocphans)
+                dkhpHandler.setDsHocPhanDaDangKy(hocphans)
+                setDsHocPhanDaDangKy(hocphans)
             })
     }, [maHocKy])
 

@@ -6,10 +6,12 @@ import { adminContext } from '@/context/adminContext'
 import { TypeHTTP, api } from '@/utils/api'
 import { ports } from '@/utils/routes'
 import React, { useContext, useEffect, useState } from 'react'
+import { dkhpContext } from '@/context/dkhpContext'
 
 const HocPhanManagement = () => {
     const [dsHocPhan, setDsHocPhan] = useState([])
     const { adminData, adminHandler } = useContext(adminContext)
+    const { dkhpHandler } = useContext(dkhpContext)
 
     useEffect(() => {
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.GET, path: '/hocphan' })
@@ -17,13 +19,16 @@ const HocPhanManagement = () => {
                 api({ port: ports.studyServiceURL, sendToken: true, type: TypeHTTP.GET, path: '/study/get-all-thong-tin-hoc-phan' })
                     .then(dsLichHoc => {
                         setDsHocPhan(() => {
-                            return hocphans.map(hocphan => {
+                            const r = hocphans.map(hocphan => {
                                 const lich = dsLichHoc.filter(item => item.maHocPhan + "" === hocphan.maHocPhan + "")[0]
                                 if (lich) {
                                     hocphan.thongTin = { _id: lich._id, tietLyThuyet: lich.tietLyThuyet, tietThucHanh: lich.tietThucHanh, batBuoc: lich.batBuoc, tienQuyet: lich.tienQuyet, hocTruoc: lich.hocTruoc, songHanh: lich.songHanh }
                                 }
                                 return hocphan
                             })
+                            dkhpHandler.setDsHocPhan(r)
+
+                            return r;
                         })
                     })
             })

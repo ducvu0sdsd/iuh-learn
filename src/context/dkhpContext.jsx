@@ -11,6 +11,7 @@ const DkhpProvider = ({ children }) => {
     const [step, setStep] = useState(1)
     const [hocPhanHienTai, setHocPhanHienTai] = useState()
     const [dsHocPhanDaDangKy, setDsHocPhanDaDangKy] = useState([])
+    const [dsHocPhan, setDsHocPhan] = useState([])
 
     const kiemTraLichTrung = (tietLyThuyet, tietThucHanh) => {
         return kiemTrLichTrung(tietLyThuyet, tietThucHanh, dsHocPhanDaDangKy)
@@ -19,14 +20,16 @@ const DkhpProvider = ({ children }) => {
     const data = {
         step,
         hocPhanHienTai,
-        dsHocPhanDaDangKy
+        dsHocPhanDaDangKy,
+        dsHocPhan
     }
 
     const handler = {
         setStep,
         setHocPhanHienTai,
         setDsHocPhanDaDangKy,
-        kiemTraLichTrung
+        kiemTraLichTrung,
+        setDsHocPhan
     }
 
     return (

@@ -26,13 +26,13 @@ export default function RootLayout({ children }) {
       </head>
       <body className='overflow-hidden bg-[white]'>
         <GlobalProvider>
-          <AdminProvider>
-            <DkhpProvider>
+          <DkhpProvider>
+            <AdminProvider>
               {children}
-            </DkhpProvider>
-          </AdminProvider>
+            </AdminProvider>
+          </DkhpProvider>
         </GlobalProvider>
       </body>
-    </html>
+    </html >
   );
 }

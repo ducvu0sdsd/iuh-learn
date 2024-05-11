@@ -10,6 +10,7 @@ import UpdateKhoaForm from '@/components/admin/khoa-management/updateKhoaForm'
 import UpdateUserForm from '@/components/admin/khoa-management/updateKhoaForm'
 import CreateLopForm from '@/components/admin/lop-management/createLopForm'
 import CreateMonHocForm from '@/components/admin/mon-hoc-management/createMonHocForm'
+import CreatePhongForm from '@/components/admin/phong-management/createPhongForm'
 import CreateUserForm from '@/components/admin/student-management/createUserForm'
 import Wrapper from '@/components/wrapper'
 import React, { createContext, useRef, useState } from 'react'
@@ -26,6 +27,7 @@ const AdminProvider = ({ children }) => {
     const [visibleCreateGiaoVienForm, setVisibleCreateGiaoVienForm] = useState(false)
     const [visibleCreateHeDaoTaoForm, setVisibleCreateHeDaoTaoForm] = useState(false)
     const [visibleCreateChuyenNganhForm, setVisibleCreateChuyenNganhForm] = useState(false)
+    const [visibleCreatePhongForm, setVisibleCreatePhongForm] = useState(false)
     const [visibleWrapper, setVisibleWrapper] = useState(false)
 
     // update
@@ -47,6 +49,7 @@ const AdminProvider = ({ children }) => {
         setVisibleCreateHocPhanForm(false)
         setVisibleCreateGiaoVienForm(false)
         setVisibleCreateHeDaoTaoForm(false)
+        setVisibleCreatePhongForm(false)
         //update
         setDataUpdateKhoa(undefined)
         setDataUpdateGiaoVien(undefined)
@@ -96,6 +99,11 @@ const AdminProvider = ({ children }) => {
         setVisibleCreateHeDaoTaoForm(true)
     }
 
+    const showCreatePhongForm = () => {
+        showWrapper();
+        setVisibleCreatePhongForm(true)
+    }
+
     const showUpdateKhoaForm = (data) => {
         showWrapper();
         setDataUpdateKhoa(data)
@@ -113,6 +121,7 @@ const AdminProvider = ({ children }) => {
         visibleCreateHocPhanForm,
         visibleCreateGiaoVienForm,
         visibleCreateHeDaoTaoForm,
+        visibleCreatePhongForm,
         //update
         dataUpdateKhoa,
         dataUpdateGiaoVien
@@ -130,6 +139,7 @@ const AdminProvider = ({ children }) => {
         showCreateHeDaoTaoForm,
         showUpdateKhoaForm,
         showUpdateGiaoVienForm,
+        showCreatePhongForm,
         hiddenWrapper
     }
 
@@ -146,6 +156,7 @@ const AdminProvider = ({ children }) => {
             <CreateHocPhanForm visible={visibleCreateHocPhanForm} />
             <CreateGiaoVienForm visible={visibleCreateGiaoVienForm} />
             <CreateHeDaoTaoForm visible={visibleCreateHeDaoTaoForm} />
+            <CreatePhongForm visible={visibleCreatePhongForm} />
             <UpdateKhoaForm data={dataUpdateKhoa} />
             <UpdateGiaoVienForm data={dataUpdateGiaoVien} />
         </adminContext.Provider>

@@ -82,11 +82,11 @@ const ListHocPhan = ({ dsHocPhan }) => {
                                 ))}
                             </td>
                             <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {hocphan?.thongTin?.tietLyThuyet.map((item) => `Thứ ${item.ngay} - Tiết (${item.tiet}) - Phòng (${item.phong}) `)}
+                                {hocphan?.thongTin?.tietLyThuyet.map((item) => `Thứ ${item.ngay} - Tiết (${item.tiet}) - Phòng (${item.phong.tenPhong}) `)}
                             </td>
                             <td scope="row" className="px-6 py-4 font-medium flex flex-col text-gray-900 whitespace-nowrap dark:text-white">
                                 {hocphan?.thongTin?.tietThucHanh.map((item, index) => (
-                                    <span>{`${hocphan?.thongTin?.tietThucHanh.length > 1 ? `Nhóm (${index + 1}) - ` : ''}${item.ngay === 1 ? 'Chủ Nhật' : 'Thứ ' + item.ngay} - Tiết (${item.tiet}) - Phòng (${item.phong})`}</span>
+                                    <span>{`${hocphan?.thongTin?.tietThucHanh.length > 1 ? `Nhóm (${index + 1}) - ` : ''}${item.ngay === 1 ? 'Chủ Nhật' : 'Thứ ' + item.ngay} - Tiết (${item.tiet}) - Phòng (${item.phong.tenPhong})`}</span>
                                 ))}
                             </td>
                             <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">

@@ -74,6 +74,12 @@ const Navbar = () => {
                             <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Quản Lý Hệ Đào Tạo</span>
                         </div>
                     </Link>
+                    <Link href={'/quan-ly-phong'}>
+                        <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
+                            <img src='/calendar.png' width={'32px'} />
+                            <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Quản Lý Phòng</span>
+                        </div>
+                    </Link>
                     <Link href={'/quan-ly-lop'}>
                         <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
                             <img src='/calendar.png' width={'32px'} />

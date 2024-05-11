@@ -84,8 +84,10 @@ const GlobalProvider = ({ children }) => {
 
     return (
         <globalContext.Provider value={{ globalData: data, globalHandler: handler }}>
+            <div className='z-40'>
+                {children}
+            </div>
             <Notification status={info.status} message={info.message} setInfomation={setInfo} />
-            {children}
         </globalContext.Provider>
     )
 }

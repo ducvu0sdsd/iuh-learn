@@ -8,9 +8,9 @@ const XemHocPhanDaDangKy = ({ dsHocPhan }) => {
 
     const { globalData, globalHandler } = useContext(globalContext)
 
-    const handleDeleteHocPhanDangKy = (id) => {
+    const handleDeleteHocPhanDangKy = (hocphan) => {
         globalHandler.notify(notifyType.LOADING, "Đang Hủy Học Phần Đăng Ký")
-        api({ sendToken: true, type: TypeHTTP.DELETE, port: ports.dkhpServiceURL, path: `/dkhp/${id}` })
+        api({ sendToken: true, type: TypeHTTP.DELETE, port: ports.dkhpServiceURL, path: `/dkhp/${hocphan._id}` })
             .then(res => {
                 globalHandler.notify(notifyType.SUCCESS, "Hủy Học Phần Đăng Ký Thành Công")
                 globalHandler.reload()
@@ -74,7 +74,8 @@ const XemHocPhanDaDangKy = ({ dsHocPhan }) => {
                                             {hocphan.hocPhan.monHoc.soTinChi}
                                         </td>
                                         <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {hocphan.hocPhan.thongTin.tietThucHanh.findIndex(item => item._id === hocphan.nhomThucHanh) + 1}
+                                            {console.log(hocphan)}
+                                            {hocphan.nhomThucHanh.nhom}
                                         </td>
                                         <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {chuyen_doi_tien_VND(hocphan.hocPhan.monHoc.soTinChi * hocphan.hocPhan.lop.heDaoTao.giaTien)}
@@ -86,10 +87,10 @@ const XemHocPhanDaDangKy = ({ dsHocPhan }) => {
                                             {hocphan.hocPhan.loaiDangKy}
                                         </td>
                                         <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {convertISODateToString(hocphan.hocPhan.thongTin.ngayDangKy)}
+                                            {convertISODateToString(hocphan.createdAt)}
                                         </td>
                                         <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <span onClick={() => handleDeleteHocPhanDangKy(hocphan.id)} className='hover:underline cursor-pointer'>Hủy</span>
+                                            <span onClick={() => handleDeleteHocPhanDangKy(hocphan)} className='hover:underline cursor-pointer'>Hủy</span>
                                         </td>
                                     </tr>
                                 ))}

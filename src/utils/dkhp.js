@@ -54,3 +54,45 @@ export const kiemTrLichTrung = (tietLyThuyet, tietThucHanh, dsHocPhanDaDangKy) =
     }
     return { status: true, message: '' }
 }
+
+
+
+export const kiemTraPhongTrung = (dsTiet, dsHocPhan) => {
+    dsTiet = dsTiet.map(item => {
+        return {
+            ngay: Number(item.ngay),
+            tiet: item.tiet.split('-').map(item1 => Number(item1))
+        }
+    })
+    const dsTietDaCo = [...dsHocPhan.map(item => {
+        const lt = item.thongTin.tietLyThuyet.map(item1 => {
+            return {
+                ngay: Number(item1.ngay),
+                tiet: item1.tiet.split('-').map(item2 => Number(item2)),
+                hocPhan: item
+            }
+        })
+        const th = item.thongTin.tietLyThuyet.map(item1 => {
+            return {
+                ngay: Number(item1.ngay),
+                tiet: item1.tiet.split('-').map(item2 => Number(item2)),
+                hocPhan: item
+            }
+        })
+        return [...lt, ...th]
+    })].flat()
+    for (let i = 0; i < dsTiet.length; i++) {
+        const tiet = dsTiet[i]
+        const hocphanTheoNgay = dsTietDaCo.filter(item => item.ngay === tiet.ngay)
+        for (let j = 0; j < hocphanTheoNgay; j++) {
+            const tietDaCo = hocphanTheoNgay[j]
+            if (tiet.tiet[0] >= tietDaCo[0] && tiet.tiet[0] <= tietDaCo[1]) {
+                return { status: false, message: `Phòng Đã Bị Trùng Giờ Với Học Phần ${tietDaCo.hocPhan.maHocPhan}` }
+            }
+            if (tiet.tiet[1] >= tietDaCo[0] && tiet.tiet[1] <= tietDaCo[1]) {
+                return { status: false, message: `Phòng Đã Bị Trùng Giờ Với Học Phần ${tietDaCo.hocPhan.maHocPhan}` }
+            }
+        }
+    }
+    return { status: true, message: `ok` }
+}
