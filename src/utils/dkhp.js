@@ -6,8 +6,8 @@ export const kiemTrLichTrung = (tietLyThuyet, tietThucHanh, dsHocPhanDaDangKy) =
             mon: item.hocPhan.monHoc
         }
         const th = {
-            ngay: item.hocPhan.thongTin.tietThucHanh.filter(item1 => item1._id === item.nhomThucHanh)[0].ngay,
-            tiet: item.hocPhan.thongTin.tietThucHanh.filter(item1 => item1._id === item.nhomThucHanh)[0].tiet,
+            ngay: item.hocPhan.thongTin.tietThucHanh.filter(item1 => item1._id === item.nhomThucHanh._id)[0]?.ngay,
+            tiet: item.hocPhan.thongTin.tietThucHanh.filter(item1 => item1._id === item.nhomThucHanh._id)[0].tiet,
             mon: item.hocPhan.monHoc
         }
         return [ly, th]
@@ -26,6 +26,8 @@ export const kiemTrLichTrung = (tietLyThuyet, tietThucHanh, dsHocPhanDaDangKy) =
         }))
         for (let i = 0; i < gioCuaHocPhan.length; i++) {
             const gio = gioCuaHocPhan[i]
+            console.log(gio.gio[0], gioLyThuyet[0], gio.gio[0], gioLyThuyet[1])
+            console.log(gio.gio[1], gioLyThuyet[0], gio.gio[1], gioLyThuyet[1])
             if (gio.gio[0] >= gioLyThuyet[0] && gio.gio[0] <= gioLyThuyet[1])
                 return { status: false, message: `Đã trùng lịch với môn ${gio.mon.tenMon}` }
             if (gio.gio[1] >= gioLyThuyet[0] && gio.gio[1] <= gioLyThuyet[1])

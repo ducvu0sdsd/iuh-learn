@@ -74,7 +74,6 @@ const XemHocPhanDaDangKy = ({ dsHocPhan }) => {
                                             {hocphan.hocPhan.monHoc.soTinChi}
                                         </td>
                                         <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {console.log(hocphan)}
                                             {hocphan.nhomThucHanh.nhom}
                                         </td>
                                         <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">

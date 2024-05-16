@@ -37,16 +37,6 @@ const Navbar = () => {
                             <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Đăng Ký Học Phần</span>
                         </div>
                     </Link>
-                    <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
-                        <img src='/search.png' width={'32px'} />
-                        <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Tra Cứu Công Nợ</span>
-                    </div>
-                    <Link href={'/lich-hoc'}>
-                        <div className='flex w-full items-center justify-start gap-2 cursor-pointer'>
-                            <img src='/calendar.png' width={'32px'} />
-                            <span className='hover:underline text-[13px] font-medium w-[200px] translate-y-[5px]'>Lịch</span>
-                        </div>
-                    </Link>
                 </>)
                 :
                 (<>

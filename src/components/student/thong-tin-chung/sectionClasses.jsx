@@ -1,52 +1,34 @@
-import React from 'react'
+'use client'
+import { globalContext } from '@/context/globalContext'
+import { TypeHTTP, api } from '@/utils/api'
+import { ports } from '@/utils/routes'
+import React, { useContext, useEffect, useState } from 'react'
 
 const SectionClasses = () => {
+    const [dsHocKy, setDsHocKy] = useState([])
+    const [dsHocPhanDaDangKy, setDsHocPhanDaDangKy] = useState([])
+    const { globalData } = useContext(globalContext)
 
-    const semesters = [
-        "KH1 (2020-2021)",
-        "KH2 (2020-2021)",
-        "KH3 (2020-2021)",
-        "KH1 (2021-2022)",
-        "KH2 (2021-2022)",
-        "KH3 (2021-2022)",
-        "KH1 (2022-2023)",
-    ]
+    useEffect(() => {
+        api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.GET, path: '/hocky' })
+            .then(res => setDsHocKy(res))
+    })
 
-    const classes = [
-        {
-            name: 'Cấu trúc dữ liệu và giải thuật',
-            code: '420003878342',
-            numberOfCredits: 4
-        },
-        {
-            name: 'Cấu trúc dữ liệu và giải thuật',
-            code: '420003878342',
-            numberOfCredits: 4
-        },
-        {
-            name: 'Cấu trúc dữ liệu và giải thuật',
-            code: '420003878342',
-            numberOfCredits: 4
-        }, {
-            name: 'Cấu trúc dữ liệu và giải thuật',
-            code: '420003878342',
-            numberOfCredits: 4
-        },
-        {
-            name: 'Cấu trúc dữ liệu và giải thuật',
-            code: '420003878342',
-            numberOfCredits: 4
-        }
-    ]
-
+    const handleChange = (maHocKy) => {
+        api({ type: TypeHTTP.GET, sendToken: true, port: ports.dkhpServiceURL, path: `/dkhp/get-by-mhk-mssv?mssv=${globalData.student?.mssv}&maHocKy=${maHocKy}` })
+            .then(hocphans => {
+                setDsHocPhanDaDangKy(hocphans)
+            })
+    }
 
     return (
         <div className='border-[1px] rounded-lg px-[20px] py-[10px] flex flex-col gap-3 h-full overflow-auto'>
             <div className='w-full flex justify-between'>
                 <h3 className='font-medium'>Lớp Học Phần</h3>
-                <select className='text-[13px] focus:outline-none border-[1px] rounded-md px-[10px] py-[7px]'>
-                    {semesters.map((semester, index) => {
-                        return <option key={index}>{semester}</option>
+                <select onChange={e => handleChange(e.target.value)} className='text-[13px] focus:outline-none border-[1px] rounded-md px-[10px] py-[7px]'>
+                    <option value={''}>Chọn Học Kỳ</option>
+                    {dsHocKy.map((semester, index) => {
+                        return <option value={semester.maHocKy} key={index}>{semester.tenHocKy}</option>
                     })}
                 </select>
             </div>
@@ -58,13 +40,13 @@ const SectionClasses = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {classes.map((classItem, index) => {
+                    {dsHocPhanDaDangKy.map((classItem, index) => {
                         return <tr key={index} className='py-[10px] w-full h-[60px]'>
                             <td className='flex flex-col'>
-                                <span className='text-[14px]'>{classItem.code}</span>
-                                <span className='text-[14px]'>{classItem.name}</span>
+                                <span className='text-[14px]'>{classItem.hocPhan.maHocPhan}</span>
+                                <span className='text-[14px]'>{classItem.hocPhan.monHoc.tenMon}</span>
                             </td>
-                            <td className='text-center text-[14px]'>{classItem.numberOfCredits}</td>
+                            <td className='text-center text-[14px]'>{classItem.hocPhan.monHoc.soTinChi}</td>
                         </tr>
                     })}
                 </tbody>

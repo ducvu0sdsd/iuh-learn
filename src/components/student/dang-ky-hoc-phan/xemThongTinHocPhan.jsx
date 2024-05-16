@@ -67,11 +67,12 @@ const XemThongTinHocPhan = () => {
             })
     }, [dkhpData.hocPhanHienTai])
 
-    const handleSubmitDangKy = () => {
-        const tietLyThuyet = currentHocPhan.thongTin.tietLyThuyet.filter(item => item._id === hocPhanDangKy.nhomLyThuyet)[0]
-        const tietThucHanh = currentHocPhan.thongTin.tietThucHanh.filter(item => item._id === hocPhanDangKy.nhomThucHanh)[0]
+    const handleSubmitDangKy = async () => {
+        const tietLyThuyet = await currentHocPhan.thongTin.tietLyThuyet.filter(item => {
+            return item._id === hocPhanDangKy.nhomLyThuyet._id
+        })[0]
+        const tietThucHanh = await currentHocPhan.thongTin.tietThucHanh.filter(item => item._id === hocPhanDangKy.nhomThucHanh._id)[0]
         const result = dkhpHandler.kiemTraLichTrung(tietLyThuyet, tietThucHanh)
-
         if (result.status === true) {
             globalHandler.notify(notifyType.LOADING, "Đang Đăng Ký Học Phần")
             api({ port: ports.dkhpServiceURL, type: TypeHTTP.POST, sendToken: true, path: '/dkhp', body: hocPhanDangKy })
@@ -139,7 +140,7 @@ const XemThongTinHocPhan = () => {
                                 </tr>
                             </thead>
                             <tbody className=' w-full bg-black'>
-                                <tr style={hocPhanDangKy.nhomLyThuyet?._id === currentHocPhan?.thongTin?.tietLyThuyet[0]?._id ? { backgroundColor: '#f1f1f1' } : {}} onClick={() => setHocPhanDangKy({ ...hocPhanDangKy, nhomLyThuyet: currentHocPhan?.thongTin?.tietLyThuyet[0] })} className="hover:bg-[#f3f3f3] transition-all cursor-pointer odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <tr style={hocPhanDangKy.nhomLyThuyet?._id === currentHocPhan?.thongTin?.tietLyThuyet[0]?._id ? { backgroundColor: '#f1f1f1' } : {}} onClick={() => { currentHocPhan?.thongTin?.tietLyThuyet[0]?.siSo >= currentHocPhan?.thongTin?.tietLyThuyet[0]?.siSoToiDa ? globalHandler.notify(notifyType.WARNING, "Học Phần Đã Đủ Số Lượng Đăng Ký") : setHocPhanDangKy({ ...hocPhanDangKy, nhomLyThuyet: currentHocPhan?.thongTin?.tietLyThuyet[0] }) }} className="hover:bg-[#f3f3f3] transition-all cursor-pointer odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                     <td scope="row" className="px-6 py-4 flex flex-col gap-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <span>Lý Thuyết - Thứ {currentHocPhan?.thongTin?.tietLyThuyet[0]?.ngay} {`(Tiết ${currentHocPhan?.thongTin?.tietLyThuyet[0]?.tiet})`} {`(Phòng ${currentHocPhan?.thongTin?.tietLyThuyet[0]?.phong.tenPhong})`}</span>
                                         <span>Giáo Viên: {currentHocPhan?.thongTin?.tietLyThuyet[0]?.giaoVien?.tenGiaoVien}</span>
@@ -148,8 +149,9 @@ const XemThongTinHocPhan = () => {
                                         {currentHocPhan?.thongTin?.tietLyThuyet[0]?.siSo}/{currentHocPhan?.thongTin?.tietLyThuyet[0]?.siSoToiDa}
                                     </td>
                                 </tr>
+
                                 {currentHocPhan?.thongTin?.tietThucHanh.map((tiet, index) => (
-                                    <tr style={hocPhanDangKy.nhomThucHanh?._id === tiet?._id ? { backgroundColor: '#f1f1f1' } : {}} onClick={() => setHocPhanDangKy({ ...hocPhanDangKy, nhomThucHanh: { ...tiet, nhom: index + 1 } })} key={index} className="hover:bg-[#f3f3f3] transition-all cursor-pointer odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <tr style={hocPhanDangKy.nhomThucHanh?._id === tiet?._id ? { backgroundColor: '#f1f1f1' } : {}} onClick={() => { tiet?.siSo >= tiet?.siSoToiDa ? globalHandler.notify(notifyType.WARNING, "Học Phần Đã Đủ Số Lượng Đăng Ký") : setHocPhanDangKy({ ...hocPhanDangKy, nhomThucHanh: { ...tiet, nhom: index + 1 } }) }} key={index} className="hover:bg-[#f3f3f3] transition-all cursor-pointer odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                         <td scope="row" className="px-6 py-4 flex flex-col gap-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             <span>Thực Hành - Thứ {tiet?.ngay} {`(Tiết ${tiet?.tiet})`} {`(Phòng ${tiet?.phong.tenPhong})`}</span>
                                             <span>Giáo Viên: {tiet?.giaoVien?.tenGiaoVien}</span>

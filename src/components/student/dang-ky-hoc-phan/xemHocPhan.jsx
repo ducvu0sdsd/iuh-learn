@@ -1,6 +1,6 @@
 'use client'
 import { dkhpContext } from '@/context/dkhpContext'
-import { globalContext } from '@/context/globalContext'
+import { globalContext, notifyType } from '@/context/globalContext'
 import { TypeHTTP, api } from '@/utils/api'
 import { ports } from '@/utils/routes'
 import React, { useContext, useEffect, useState } from 'react'
@@ -16,16 +16,16 @@ const XemHocPhan = () => {
 
     const [dsHocKy, setDsHocKy] = useState([])
     const [dsHocPhan, setDsHocPhan] = useState([])
-    const { globalData } = useContext(globalContext)
+    const { globalData, globalHandler } = useContext(globalContext)
     const { dkhpData, dkhpHandler } = useContext(dkhpContext)
     const [loaiDangKy, setLoaiDangKy] = useState(dsLoaiDangKy[1]);
     const [maHocKy, setMaHocKy] = useState('')
     const [dsHocPhanDaDangKy, setDsHocPhanDaDangKy] = useState([])
+    const [dsMonDaHoc, setDsMonDaHoc] = useState([])
 
     useEffect(() => {
         api({ type: TypeHTTP.GET, sendToken: true, port: ports.dkhpServiceURL, path: `/dkhp/get-by-mhk-mssv?mssv=${globalData.student?.mssv}&maHocKy=${maHocKy}` })
             .then(hocphans => {
-                console.log(hocphans)
                 dkhpHandler.setDsHocPhanDaDangKy(hocphans)
                 setDsHocPhanDaDangKy(hocphans)
             })
@@ -35,7 +35,11 @@ const XemHocPhan = () => {
     useEffect(() => {
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.GET, path: '/hocky' })
             .then(res => setDsHocKy(res))
-    }, [])
+        api({ type: TypeHTTP.GET, sendToken: true, port: ports.studyServiceURL, path: `/study/get-thong-tin-hoc-tap-by-mssv/${globalData.student?.mssv}` })
+            .then(res => {
+                setDsMonDaHoc(res ? res.hocPhanDaHoc : [])
+            })
+    }, [globalData.student])
 
     useEffect(() => {
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.GET, path: '/hocphan' })
@@ -63,6 +67,37 @@ const XemHocPhan = () => {
                     })
             })
     }, [maHocKy, loaiDangKy])
+
+    const handleGoToDetail = (hocphan) => {
+        if (hocphan.thongTin.hocTruoc.length > 0) {
+            api({ type: TypeHTTP.GET, sendToken: true, port: ports.studyServiceURL, path: `/study/get-thong-tin-hoc-tap-by-mssv/${globalData.student.mssv}` })
+                .then(res => {
+                    if (!res) {
+                        globalHandler.notify(notifyType.WARNING, `Bạn Phải Hoàn Thành ${hocphan.thongTin.hocTruoc.map(item => item.tenMon).join(', ')} Trước Khi Đăng Ký Học Phần Này`)
+                    } else {
+                        let ok = []
+                        hocphan.thongTin.hocTruoc.forEach((phaiHocTruoc) => {
+                            if (res.hocPhanDaHoc.map(item => item.maMon).includes(phaiHocTruoc.maMon)) {
+                                ok.push({
+                                    maMon: phaiHocTruoc.maMon,
+                                    tenMon: phaiHocTruoc.tenMon
+                                })
+                            }
+                        })
+                        if (ok.length === hocphan.thongTin.hocTruoc.length) {
+                            dkhpHandler.setHocPhanHienTai(hocphan);
+                            dkhpHandler.setStep(2)
+                        } else {
+                            const monChuaHoc = hocphan.thongTin.hocTruoc.filter(item => !ok.map(item1 => item1.maMon).includes(item.maMon))
+                            globalHandler.notify(notifyType.WARNING, `Bạn Phải Hoàn Thành ${monChuaHoc.map(item => item.tenMon).toString()} Trước Khi Đăng Ký Học Phần Này`)
+                        }
+                    }
+                })
+        } else {
+            dkhpHandler.setHocPhanHienTai(hocphan);
+            dkhpHandler.setStep(2)
+        }
+    }
 
     return (
         <div className='w-full h-screen flex flex-col gap-5 overflow-y-auto'>
@@ -164,11 +199,11 @@ const XemHocPhan = () => {
                                         <span > {hocphan.thongTin.songHanh.map((item, index) => item.tenMon)}</span>
                                     </td>
                                     <td className="px-6 py-4 flex items-center gap-1">
-                                        {!dsHocPhanDaDangKy.filter(item => item.hocPhan.monHoc.maMon === hocphan.monHoc.maMon)[0] &&
-                                            <button onClick={() => {
-                                                dkhpHandler.setHocPhanHienTai(hocphan);
-                                                dkhpHandler.setStep(2)
-                                            }} className='px-4 py-1 rounded-md text-[13px] bg-[blue] text-white'>Đăng Ký</button>
+                                        {console.log(dsMonDaHoc)}
+                                        {(!dsHocPhanDaDangKy.filter(item => item.hocPhan.monHoc.maMon === hocphan.monHoc.maMon)[0] && !dsMonDaHoc.filter(item => item.maMon === hocphan.monHoc.maMon)[0]) ?
+                                            <button onClick={() => handleGoToDetail(hocphan)} className='px-4 py-1 rounded-md text-[13px] bg-[blue] text-white'>Đăng Ký</button>
+                                            :
+                                            <></>
                                         }
                                     </td>
                                 </tr>
