@@ -1,3 +1,4 @@
+import { adminContext } from '@/context/adminContext'
 import { globalContext, notifyType } from '@/context/globalContext'
 import { TypeHTTP, api } from '@/utils/api'
 import { ports } from '@/utils/routes'
@@ -6,6 +7,8 @@ import React, { useContext } from 'react'
 const ListUser = ({ dsChuyenNganh }) => {
 
     const { globalHandler } = useContext(globalContext)
+    const { adminHandler } = useContext(adminContext)
+
 
     const handleDeleteChuyenNganh = (id) => {
         globalHandler.notify(notifyType.LOADING, "Đang Xóa Chuyên Ngành")
@@ -40,7 +43,7 @@ const ListUser = ({ dsChuyenNganh }) => {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">{chuyenNganh.khoa.tenKhoa}</td>
                             <td className="px-6 py-4 flex items-center gap-1">
-                                <button className='px-4 py-1 rounded-md text-[14px] bg-[blue] text-white'>Sửa</button>
+                                <button onClick={() => adminHandler.showUpdateChuyenNganhForm(chuyenNganh)} className='px-4 py-1 rounded-md text-[14px] bg-[blue] text-white'>Sửa</button>
                                 <button onClick={() => handleDeleteChuyenNganh(chuyenNganh.maChuyenNganh)} className='px-4 py-1 rounded-md text-[14px] bg-[red] text-white'>Xóa</button>
                             </td>
                         </tr>

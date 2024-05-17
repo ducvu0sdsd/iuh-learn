@@ -1,3 +1,4 @@
+import { adminContext } from '@/context/adminContext'
 import { globalContext, notifyType } from '@/context/globalContext'
 import { TypeHTTP, api } from '@/utils/api'
 import { ports } from '@/utils/routes'
@@ -6,6 +7,8 @@ import React, { useContext, useEffect, useState } from 'react'
 const ListHeDaoTao = ({ dsHeDaoTao }) => {
 
     const { globalHandler } = useContext(globalContext)
+    const { adminHandler } = useContext(adminContext)
+
 
     const handleDeleteHeDaoTao = (id) => {
         globalHandler.notify(notifyType.LOADING, "Đang Xóa Hệ Đào Tạo")
@@ -42,7 +45,7 @@ const ListHeDaoTao = ({ dsHeDaoTao }) => {
                                 {heDaoTao.giaTien}
                             </td>
                             <td className="px-6 py-4 flex items-center gap-1">
-                                <button className='px-4 py-1 rounded-md text-[14px] bg-[blue] text-white'>Sửa</button>
+                                <button onClick={() => adminHandler.showUpdateHeDaoTaoForm(heDaoTao)} className='px-4 py-1 rounded-md text-[14px] bg-[blue] text-white'>Sửa</button>
                                 <button onClick={() => handleDeleteHeDaoTao(heDaoTao.maHeDaoTao)} className='px-4 py-1 rounded-md text-[14px] bg-[red] text-white'>Xóa</button>
                             </td>
                         </tr>

@@ -73,8 +73,8 @@ const XemHocPhanDaDangKy = ({ dsHocPhan }) => {
                                         <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {hocphan.hocPhan.monHoc.soTinChi}
                                         </td>
-                                        <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {hocphan.nhomThucHanh.nhom}
+                                        <td scope="row" className="px-6 py-4 font-mediumx text-gray-900 whitespace-nowrap dark:text-white">
+                                            {hocphan.nhomThucHanh?.nhom}
                                         </td>
                                         <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {chuyen_doi_tien_VND(hocphan.hocPhan.monHoc.soTinChi * hocphan.hocPhan.lop.heDaoTao.giaTien)}

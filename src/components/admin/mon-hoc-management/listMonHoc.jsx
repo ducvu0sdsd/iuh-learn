@@ -1,3 +1,4 @@
+import { adminContext } from '@/context/adminContext'
 import { globalContext, notifyType } from '@/context/globalContext'
 import { TypeHTTP, api } from '@/utils/api'
 import { ports } from '@/utils/routes'
@@ -6,6 +7,7 @@ import React, { useContext } from 'react'
 const ListMonHoc = ({ dsMonHoc }) => {
 
     const { globalHandler } = useContext(globalContext)
+    const { adminHandler } = useContext(adminContext)
 
     const handleDeleteMonHoc = (id) => {
         globalHandler.notify(notifyType.LOADING, "Đang Xóa Môn Học")
@@ -52,7 +54,7 @@ const ListMonHoc = ({ dsMonHoc }) => {
                             <td className="px-6 py-4 whitespace-nowrap">{monhoc.soTietThucHanh}</td>
                             <td className="px-6 py-4 whitespace-nowrap">{monhoc.chuyenNganh.tenChuyenNganh}</td>
                             <td className="px-6 py-4 flex items-center gap-1">
-                                <button className='px-4 py-1 rounded-md text-[14px] bg-[blue] text-white'>Sửa</button>
+                                <button onClick={() => adminHandler.showUpdateMonHocForm(monhoc)} className='px-4 py-1 rounded-md text-[14px] bg-[blue] text-white'>Sửa</button>
                                 <button onClick={() => handleDeleteMonHoc(monhoc.maMon)} className='px-4 py-1 rounded-md text-[14px] bg-[red] text-white'>Xóa</button>
                             </td>
                         </tr>

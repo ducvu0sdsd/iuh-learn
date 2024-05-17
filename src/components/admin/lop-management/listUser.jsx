@@ -1,3 +1,4 @@
+import { adminContext } from '@/context/adminContext'
 import { globalContext, notifyType } from '@/context/globalContext'
 import { TypeHTTP, api } from '@/utils/api'
 import { ports } from '@/utils/routes'
@@ -6,6 +7,7 @@ import React, { useContext } from 'react'
 const ListUser = ({ dsLop }) => {
 
     const { globalHandler } = useContext(globalContext)
+    const { adminHandler } = useContext(adminContext)
 
     const handleDeleteLop = (id) => {
         globalHandler.notify(notifyType.LOADING, "Đang Xóa Lớp Học")
@@ -44,7 +46,7 @@ const ListUser = ({ dsLop }) => {
                             <td className="px-6 py-4 whitespace-nowrap">{lop.heDaoTao.tenHeDaoTao}</td>
                             <td className="px-6 py-4 whitespace-nowrap">{lop.chuyenNganh.tenChuyenNganh}</td>
                             <td className="px-6 py-4 flex items-center gap-1">
-                                <button className='px-4 py-1 rounded-md text-[14px] bg-[blue] text-white'>Sửa</button>
+                                <button onClick={() => adminHandler.showUpdateLop(lop)} className='px-4 py-1 rounded-md text-[14px] bg-[blue] text-white'>Sửa</button>
                                 <button onClick={() => handleDeleteLop(lop.maLop)} className='px-4 py-1 rounded-md text-[14px] bg-[red] text-white'>Xóa</button>
                             </td>
                         </tr>

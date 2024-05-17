@@ -1,3 +1,4 @@
+import { adminContext } from '@/context/adminContext'
 import { globalContext, notifyType } from '@/context/globalContext'
 import { TypeHTTP, api } from '@/utils/api'
 import { convertISODateToString } from '@/utils/others'
@@ -7,7 +8,7 @@ import React, { useContext } from 'react'
 const ListSinhVien = ({ dsSinhVien }) => {
 
     const { globalHandler } = useContext(globalContext)
-
+    const { adminHandler } = useContext(adminContext)
     const handleDeleteSinhVien = (id) => {
         globalHandler.notify(notifyType.LOADING, "Đang Xóa Sinh Viên")
         api({ port: ports.otherServiceURL, type: TypeHTTP.DELETE, sendToken: true, path: `/sinhvien/${id}` })
@@ -70,7 +71,7 @@ const ListSinhVien = ({ dsSinhVien }) => {
                             <td className="px-6 py-4 whitespace-nowrap">{sinhvien.danToc}</td>
                             <td className="px-6 py-4 whitespace-nowrap">{sinhvien.lop.tenLop}</td>
                             <td className="px-6 py-4 flex items-center gap-1">
-                                <button className='px-4 py-1 rounded-md text-[14px] bg-[blue] text-white'>Sửa</button>
+                                <button onClick={() => adminHandler.showUpdateStudentForm(sinhvien)} className='px-4 py-1 rounded-md text-[14px] bg-[blue] text-white'>Sửa</button>
                                 <button onClick={() => handleDeleteSinhVien(sinhvien.mssv)} className='px-4 py-1 rounded-md text-[14px] bg-[red] text-white'>Xóa</button>
                             </td>
                         </tr>

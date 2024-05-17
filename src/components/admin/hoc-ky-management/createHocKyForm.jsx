@@ -8,10 +8,12 @@ const CreateHocKyForm = ({ visible }) => {
     const { adminHandler } = useContext(adminContext)
     const { globalHandler } = useContext(globalContext)
     const [tenHocKy, setTenHocKy] = useState('')
+    const [choPhepDangKy, setChoPhepDangKy] = useState(false)
 
     const handleCreateHocKy = () => {
         const body = {
             tenHocKy,
+            choPhepDangKy
         }
         globalHandler.notify(notifyType.LOADING, "Đang Tạo Học Kỳ")
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.POST, body, path: '/hocky' })
@@ -29,7 +31,11 @@ const CreateHocKyForm = ({ visible }) => {
                 <span className='text-[19px] font-medium'>Thêm Học Kỳ</span>
             </div>
             <div className='flex justify-evenly mb-1'>
-                <input value={tenHocKy} onChange={e => setTenHocKy(e.target.value)} placeholder='Tên Học Kỳ' className='w-full text-[14px] focus:outline-0 px-[10px] h-[35px] border-[#c1c1c1] border-[1px] rounded-md' />
+                <input value={tenHocKy} onChange={e => setTenHocKy(e.target.value)} placeholder='Tên Học Kỳ' className='w-[45%] text-[14px] focus:outline-0 px-[10px] h-[35px] border-[#c1c1c1] border-[1px] rounded-md' />
+                <select value={choPhepDangKy} onChange={e => setChoPhepDangKy(e.target.value)} className='w-[45%] text-[14px] focus:outline-0 px-[10px] h-[35px] border-[#c1c1c1] border-[1px] rounded-md'>
+                    <option value={true}>Cho Phép</option>
+                    <option value={false}>Không Cho Phép</option>
+                </select>
             </div>
             <div className='flex justify-end gap-2 mb-1'>
                 <button onClick={() => adminHandler.hiddenWrapper()} className='px-4 py-1 rounded-md text-[14px] bg-red-500 text-white'>Thoát </button>

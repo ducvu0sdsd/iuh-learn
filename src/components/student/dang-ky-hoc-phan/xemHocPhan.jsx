@@ -66,6 +66,11 @@ const XemHocPhan = () => {
                         })
                     })
             })
+        if (dsHocKy) {
+            if (dsHocKy.filter(item => item.maHocKy + "" === maHocKy + "")[0]?.choPhepDangKy === false) {
+                globalHandler.notify(notifyType.FAIL, "Học kỳ này không cho phép đăng ký")
+            }
+        }
     }, [maHocKy, loaiDangKy])
 
     const handleGoToDetail = (hocphan) => {
@@ -199,9 +204,11 @@ const XemHocPhan = () => {
                                         <span > {hocphan.thongTin.songHanh.map((item, index) => item.tenMon)}</span>
                                     </td>
                                     <td className="px-6 py-4 flex items-center gap-1">
-                                        {console.log(dsMonDaHoc)}
-                                        {(!dsHocPhanDaDangKy.filter(item => item.hocPhan.monHoc.maMon === hocphan.monHoc.maMon)[0] && !dsMonDaHoc.filter(item => item.maMon === hocphan.monHoc.maMon)[0]) ?
-                                            <button onClick={() => handleGoToDetail(hocphan)} className='px-4 py-1 rounded-md text-[13px] bg-[blue] text-white'>Đăng Ký</button>
+                                        {dsHocKy.filter(item => item.maHocKy + "" === maHocKy + "")[0]?.choPhepDangKy === true ?
+                                            (!dsHocPhanDaDangKy.filter(item => item.hocPhan.monHoc.maMon === hocphan.monHoc.maMon)[0] && !dsMonDaHoc.filter(item => item.maMon === hocphan.monHoc.maMon)[0]) ?
+                                                <button onClick={() => handleGoToDetail(hocphan)} className='px-4 py-1 rounded-md text-[13px] bg-[blue] text-white'>Đăng Ký</button>
+                                                :
+                                                <></>
                                             :
                                             <></>
                                         }

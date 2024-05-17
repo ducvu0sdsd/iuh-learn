@@ -1,3 +1,4 @@
+import { adminContext } from '@/context/adminContext'
 import { globalContext, notifyType } from '@/context/globalContext'
 import { TypeHTTP, api } from '@/utils/api'
 import { ports } from '@/utils/routes'
@@ -6,6 +7,7 @@ import React, { useContext } from 'react'
 const ListHocKy = ({ dsHocKy }) => {
 
     const { globalHandler } = useContext(globalContext)
+    const { adminHandler } = useContext(adminContext)
 
     const handleDeleteHocKy = (id) => {
         globalHandler.notify(notifyType.LOADING, "Đang Xóa Học Kỳ")
@@ -24,6 +26,9 @@ const ListHocKy = ({ dsHocKy }) => {
                         <th scope="col" className="px-6 py-3 w-[90%]">
                             Tên Học Kỳ
                         </th>
+                        <th scope="col" className="px-6 py-3 w-[90%]">
+                            Cho Phép Đăng Ký
+                        </th>
                         <th scope="col" className="px-6 py-3">
                             Các Thao Tác
                         </th>
@@ -35,8 +40,11 @@ const ListHocKy = ({ dsHocKy }) => {
                             <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {hocky.tenHocKy}
                             </td>
+                            <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {hocky.choPhepDangKy ? "Cho Phép" : "Không Cho Phép"}
+                            </td>
                             <td className="px-6 py-4 flex items-center gap-1">
-                                <button className='px-4 py-1 rounded-md text-[14px] bg-[blue] text-white'>Sửa</button>
+                                <button onClick={() => adminHandler.showUpdateHocKyForm(hocky)} className='px-4 py-1 rounded-md text-[14px] bg-[blue] text-white'>Sửa</button>
                                 <button onClick={() => handleDeleteHocKy(hocky.maHocKy)} className='px-4 py-1 rounded-md text-[14px] bg-[red] text-white'>Xóa</button>
                             </td>
                         </tr>

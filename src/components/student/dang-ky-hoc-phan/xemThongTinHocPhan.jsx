@@ -107,13 +107,19 @@ const XemThongTinHocPhan = () => {
                             </thead>
                             <tbody className=' w-full bg-black'>
                                 {dsHocPhan.map((hocphan, index) => (
-                                    <tr onClick={() => setCurrenHocPhan(hocphan)} style={currentHocPhan?.maHocPhan === hocphan?.maHocPhan ? { backgroundColor: '#f3f3f3' } : {}} key={index} className="hover:bg-[#f3f3f3] transition-all cursor-pointer odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <tr onClick={() => {
+                                        if (hocphan.thongTin.trangThai === 'Mở Lớp') {
+                                            setCurrenHocPhan(hocphan)
+                                        } else {
+                                            globalHandler.notify(notifyType.FAIL, "Học Phần Này Không Được Phép Đăng Ký")
+                                        }
+                                    }} style={currentHocPhan?.maHocPhan === hocphan?.maHocPhan ? { backgroundColor: '#f3f3f3' } : {}} key={index} className="hover:bg-[#f3f3f3] transition-all cursor-pointer odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                         <td scope="row" className="w-[50px] px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {index + 1}
                                         </td>
                                         <td scope="row" className="px-6 py-4 flex flex-col gap-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             <span className='text-[14px] font-semibold'>{hocphan.monHoc.tenMon} - {hocphan.lop.tenLop}</span>
-                                            <span className='text-[13px]'>Trạng Thái: {'Mở Lớp'}</span>
+                                            <span className='text-[13px]'>Trạng Thái: {hocphan.thongTin.trangThai}</span>
                                         </td>
                                         <td scope="row" className="px-6 text-[14px] py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {hocphan.thongTin.tietLyThuyet[0].siSo}/{hocphan.thongTin.tietLyThuyet[0].siSoToiDa}

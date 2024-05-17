@@ -1,17 +1,24 @@
 'use client'
 import CreateChuyenNganhForm from '@/components/admin/chuyen-nganh-management/createChuyenNganhFrom'
+import UpdateChuyenNganhForm from '@/components/admin/chuyen-nganh-management/updateChuyenNganhForm'
 import CreateGiaoVienForm from '@/components/admin/giao-vien-management/createGiaoVienFrom'
 import UpdateGiaoVienForm from '@/components/admin/giao-vien-management/updateGiaoVienForm'
 import CreateHeDaoTaoForm from '@/components/admin/he-dao-tao-management/createheDaoTaoForm'
+import UpdateHeDaoTaoForm from '@/components/admin/he-dao-tao-management/updateHeDaoTaoForm'
 import CreateHocKyForm from '@/components/admin/hoc-ky-management/createHocKyForm'
+import UpdateHocKyForm from '@/components/admin/hoc-ky-management/updateHocKyForm'
 import CreateHocPhanForm from '@/components/admin/hoc-phan-management/createHocPhanForm'
 import CreateKhoaForm from '@/components/admin/khoa-management/createKhoaForm'
 import UpdateKhoaForm from '@/components/admin/khoa-management/updateKhoaForm'
 import UpdateUserForm from '@/components/admin/khoa-management/updateKhoaForm'
 import CreateLopForm from '@/components/admin/lop-management/createLopForm'
+import UpdateLopForm from '@/components/admin/lop-management/updateLopForm'
 import CreateMonHocForm from '@/components/admin/mon-hoc-management/createMonHocForm'
+import UpdateMonHocForm from '@/components/admin/mon-hoc-management/updateMonHocForm'
 import CreatePhongForm from '@/components/admin/phong-management/createPhongForm'
+import UpdatePhongForm from '@/components/admin/phong-management/updatePhongForm'
 import CreateUserForm from '@/components/admin/student-management/createUserForm'
+import UpdateStudentForm from '@/components/admin/student-management/updateStudentForm'
 import Wrapper from '@/components/wrapper'
 import React, { createContext, useRef, useState } from 'react'
 
@@ -33,6 +40,13 @@ const AdminProvider = ({ children }) => {
     // update
     const [dataUpdateKhoa, setDataUpdateKhoa] = useState(undefined)
     const [dataUpdateGiaoVien, setDataUpdateGiaoVien] = useState(undefined)
+    const [dataUpdateHeDaoTao, setDataUpdateHeDaoTao] = useState(undefined)
+    const [dataUpdatePhong, setDataUpdatePhong] = useState(undefined)
+    const [dataUpdateLop, setDataUpdateLop] = useState(undefined)
+    const [dataUpdateMonHoc, setDataUpdateMonHoc] = useState(undefined)
+    const [dataUpdateHocKy, setDataUpdateHocKy] = useState(undefined)
+    const [dataUpdateStudent, setDataUpdateStudent] = useState(undefined)
+    const [dataUpdateChuyenNganh, setDataUpdateChuyenNganh] = useState(undefined)
 
     const showWrapper = () => {
         setVisibleWrapper(true)
@@ -53,6 +67,13 @@ const AdminProvider = ({ children }) => {
         //update
         setDataUpdateKhoa(undefined)
         setDataUpdateGiaoVien(undefined)
+        setDataUpdateHeDaoTao(undefined)
+        setDataUpdatePhong(undefined)
+        setDataUpdateLop(undefined)
+        setDataUpdateMonHoc(undefined)
+        setDataUpdateHocKy(undefined)
+        setDataUpdateStudent(undefined)
+        setDataUpdateChuyenNganh(undefined)
     }
 
     const showCreateUserForm = () => {
@@ -112,6 +133,34 @@ const AdminProvider = ({ children }) => {
         showWrapper();
         setDataUpdateGiaoVien(data)
     }
+    const showUpdateHeDaoTaoForm = (data) => {
+        showWrapper();
+        setDataUpdateHeDaoTao(data)
+    }
+    const showUpdatePhong = (data) => {
+        showWrapper();
+        setDataUpdatePhong(data)
+    }
+    const showUpdateLop = (data) => {
+        showWrapper();
+        setDataUpdateLop(data)
+    }
+    const showUpdateMonHocForm = (data) => {
+        showWrapper();
+        setDataUpdateMonHoc(data)
+    }
+    const showUpdateHocKyForm = (data) => {
+        showWrapper();
+        setDataUpdateHocKy(data)
+    }
+    const showUpdateStudentForm = (data) => {
+        showWrapper();
+        setDataUpdateStudent(data)
+    }
+    const showUpdateChuyenNganhForm = (data) => {
+        showWrapper();
+        setDataUpdateChuyenNganh(data)
+    }
 
     const adminData = {
         visibleCreateKhoaForm,
@@ -124,7 +173,14 @@ const AdminProvider = ({ children }) => {
         visibleCreatePhongForm,
         //update
         dataUpdateKhoa,
-        dataUpdateGiaoVien
+        dataUpdateGiaoVien,
+        dataUpdateHeDaoTao,
+        dataUpdatePhong,
+        dataUpdateLop,
+        dataUpdateMonHoc,
+        dataUpdateHocKy,
+        dataUpdateStudent,
+        dataUpdateChuyenNganh
     }
 
     const adminHandler = {
@@ -137,9 +193,17 @@ const AdminProvider = ({ children }) => {
         showCreateHocPhanForm,
         showCreateGiaoVienForm,
         showCreateHeDaoTaoForm,
+        //update
         showUpdateKhoaForm,
         showUpdateGiaoVienForm,
         showCreatePhongForm,
+        showUpdateHeDaoTaoForm,
+        showUpdatePhong,
+        showUpdateLop,
+        showUpdateMonHocForm,
+        showUpdateHocKyForm,
+        showUpdateStudentForm,
+        showUpdateChuyenNganhForm,
         hiddenWrapper
     }
 
@@ -159,6 +223,13 @@ const AdminProvider = ({ children }) => {
             <CreatePhongForm visible={visibleCreatePhongForm} />
             <UpdateKhoaForm data={dataUpdateKhoa} />
             <UpdateGiaoVienForm data={dataUpdateGiaoVien} />
+            <UpdateHeDaoTaoForm data={dataUpdateHeDaoTao} />
+            <UpdatePhongForm data={dataUpdatePhong} />
+            <UpdateLopForm data={dataUpdateLop} />
+            <UpdateMonHocForm data={dataUpdateMonHoc} />
+            <UpdateHocKyForm data={dataUpdateHocKy} />
+            <UpdateStudentForm data={dataUpdateStudent} />
+            <UpdateChuyenNganhForm data={dataUpdateChuyenNganh} />
         </adminContext.Provider>
     )
 }

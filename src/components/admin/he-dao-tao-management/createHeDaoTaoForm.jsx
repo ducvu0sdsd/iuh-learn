@@ -29,7 +29,7 @@ const CreateHeDaoTaoForm = ({ visible }) => {
                 <span className='text-[19px] font-medium'>Thêm Hệ Đào Tạo</span>
             </div>
             <div className='flex justify-evenly mb-1'>
-                <input value={tenHeDaoTao} onChange={e => setTenHeDaoTao(e.target.value)} placeholder='Tên Khoa' className='w-[45%] text-[14px] focus:outline-0 px-[10px] h-[35px] border-[#c1c1c1] border-[1px] rounded-md' />
+                <input value={tenHeDaoTao} onChange={e => setTenHeDaoTao(e.target.value)} placeholder='Hệ đào tạo' className='w-[45%] text-[14px] focus:outline-0 px-[10px] h-[35px] border-[#c1c1c1] border-[1px] rounded-md' />
                 <input value={giaTien} onChange={e => setGiaTien(Number(e.target.value))} placeholder='Đơn Giá Của Tín Chỉ (VND)' className='w-[45%] text-[14px] focus:outline-0 px-[10px] h-[35px] border-[#c1c1c1] border-[1px] rounded-md' />
             </div>
             <div className='flex justify-end gap-2 mb-1'>
