@@ -12,6 +12,17 @@ const CreateHeDaoTaoForm = ({ visible }) => {
     const [giaTien, setGiaTien] = useState('')
 
     const handleCreateHeDaoTao = () => {
+
+        if (tenHeDaoTao === '') {
+            globalHandler.notify(notifyType.WARNING, 'Tên Hệ Đào Tạo Không Hợp Lệ')
+            return
+        }
+
+        if (/[0-9]{1,}/.test(giaTien + "") || Number(giaTien + "") < 0) {
+            globalHandler.notify(notifyType.WARNING, 'Giá Tiền Không Hợp Lệ')
+            return
+        }
+
         const body = { tenHeDaoTao, giaTien }
         globalHandler.notify(notifyType.LOADING, "Đang Tạo Hệ Đào Tạo")
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.POST, body, path: '/hedaotao' })

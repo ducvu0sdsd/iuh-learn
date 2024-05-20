@@ -17,6 +17,12 @@ const UpdateKhoaForm = ({ data }) => {
     }, [data])
 
     const handleUpdateKhoa = () => {
+
+        if (!khoa || khoa.tenKhoa === '') {
+            globalHandler.notify(notifyType.WARNING, 'Tên Khoa Không Hợp Lệ')
+            return
+        }
+
         const body = khoa
         globalHandler.notify(notifyType.LOADING, "Đang Sửa Khoa Đào Tạo")
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.POST, body, path: '/khoa/update' })

@@ -11,6 +11,10 @@ const CreateUserForm = ({ visible }) => {
     const [tenKhoa, setTenKhoa] = useState('')
 
     const handleCreateKhoa = () => {
+        if (tenKhoa === '') {
+            globalHandler.notify(notifyType.WARNING, 'Tên Khoa Không Hợp Lệ')
+            return
+        }
         const body = { tenKhoa }
         globalHandler.notify(notifyType.LOADING, "Đang Tạo Khoa Đào Tạo")
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.POST, body, path: '/khoa' })

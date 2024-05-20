@@ -28,6 +28,52 @@ const CreateUserForm = ({ visible }) => {
     }, [])
 
     const handleCreateSinhVien = () => {
+
+        if (!/^[A-ZÀ-Ỹ][a-zà-ỹ]+(\s[A-ZÀ-Ỹ][a-zà-ỹ]+)+$/.test(sinhVien.hoTen)) {
+            globalHandler.notify(notifyType.WARNING, "Họ Tên Không Hợp Lệ")
+            return
+        }
+
+        if (!/^\d{10}$/.test(sinhVien.soDienThoai)) {
+            globalHandler.notify(notifyType.WARNING, 'Số Điện Thoại Không Hợp Lệ')
+            return
+        }
+
+        if (sinhVien.gioiTinh === '') {
+            globalHandler.notify(notifyType.WARNING, 'Giới Tính Không Hợp Lệ')
+            return
+        }
+
+        if (sinhVien.diaChi === '') {
+            globalHandler.notify(notifyType.WARNING, 'Địa Chỉ Không Hợp Lệ')
+            return
+        }
+
+        if (!sinhVien.ngaySinh || new Date().getFullYear() - new Date(sinhVien.ngaySinh).getFullYear() - (new Date().getMonth() < new Date(sinhVien.ngaySinh).getMonth() || (new Date().getMonth() === new Date(sinhVien.ngaySinh).getMonth() && new Date().getDate() < new Date(sinhVien.ngaySinh).getDate())) < 16) {
+            globalHandler.notify(notifyType.WARNING, 'Năm Sinh Phải Trên 16 Tuổi');
+            return;
+        }
+
+        if (sinhVien.noiSinh === '') {
+            globalHandler.notify(notifyType.WARNING, 'Nơi Sinh Không Hợp Lệ')
+            return
+        }
+
+        if (sinhVien.email === '') {
+            globalHandler.notify(notifyType.WARNING, 'Email Không Hợp Lệ')
+            return
+        }
+
+        if (sinhVien.danToc === '') {
+            globalHandler.notify(notifyType.WARNING, 'Dân Tộc Không Hợp Lệ')
+            return
+        }
+
+        if (!sinhVien.lop || sinhVien.lop.maLop === '') {
+            globalHandler.notify(notifyType.WARNING, 'Lớp Không Hợp Lệ')
+            return
+        }
+
         globalHandler.notify(notifyType.LOADING, "Đang Tạo Sinh Viên")
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.POST, body: sinhVien, path: '/sinhvien' })
             .then(res => {
@@ -48,7 +94,7 @@ const CreateUserForm = ({ visible }) => {
                 <input value={sinhVien.soDienThoai} onChange={e => setSinhVien({ ...sinhVien, soDienThoai: e.target.value })} placeholder='Số điện thoại' className='w-[45%] text-[14px] focus:outline-0 px-[10px] h-[35px] border-[#c1c1c1] border-[1px] rounded-md' />
             </div>
             <div className='flex justify-evenly mb-1'>
-                <select onChange={e => setSinhVien({ ...sinhVien, gioiTinh: e.target.value === 'Nam' ? true : false })} className='w-[45%] text-[14px] focus:outline-0 px-[10px] h-[35px] border-[#c1c1c1] border-[1px] rounded-md'>
+                <select onChange={e => setSinhVien({ ...sinhVien, gioiTinh: e.target.value === "" ? "" : e.target.value === 'Nam' ? true : false })} className='w-[45%] text-[14px] focus:outline-0 px-[10px] h-[35px] border-[#c1c1c1] border-[1px] rounded-md'>
                     <option value=''>Giới tính</option>
                     <option value='Nam'>Nam</option>
                     <option value='Nữ'>Nữ</option>

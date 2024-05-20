@@ -71,7 +71,6 @@ const ListSinhVien = ({ dsSinhVien }) => {
                             <td className="px-6 py-4 whitespace-nowrap">{sinhvien.danToc}</td>
                             <td className="px-6 py-4 whitespace-nowrap">{sinhvien.lop.tenLop}</td>
                             <td className="px-6 py-4 flex items-center gap-1">
-                                <button onClick={() => adminHandler.showUpdateStudentForm(sinhvien)} className='px-4 py-1 rounded-md text-[14px] bg-[blue] text-white'>Sửa</button>
                                 <button onClick={() => handleDeleteSinhVien(sinhvien.mssv)} className='px-4 py-1 rounded-md text-[14px] bg-[red] text-white'>Xóa</button>
                             </td>
                         </tr>
