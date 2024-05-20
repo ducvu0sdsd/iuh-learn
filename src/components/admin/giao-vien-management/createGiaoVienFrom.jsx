@@ -30,6 +30,48 @@ const CreateGiaoVienForm = ({ visible }) => {
     }, [])
 
     const handleCreateGiaoVien = () => {
+
+        if (!/^[A-ZÀ-Ỹ][a-zà-ỹ]+(\s[A-ZÀ-Ỹ][a-zà-ỹ]+)+$/.test(giaoVien.hoTen)) {
+            globalHandler.notify(notifyType.WARNING, "Họ Tên Không Hợp Lệ")
+            return
+        }
+        if (!giaoVien.ngaySinh || new Date().getFullYear() - new Date(giaoVien.ngaySinh).getFullYear() - (new Date().getMonth() < new Date(giaoVien.ngaySinh).getMonth() || (new Date().getMonth() === new Date(giaoVien.ngaySinh).getMonth() && new Date().getDate() < new Date(giaoVien.ngaySinh).getDate())) < 22) {
+            globalHandler.notify(notifyType.WARNING, 'Năm Sinh Phải Trên 22 Tuổi');
+            return;
+        }
+
+        if (!/^\d{10}$/.test(giaoVien.soDienThoai)) {
+            globalHandler.notify(notifyType.WARNING, 'Số Điện Thoại Không Hợp Lệ')
+            return
+        }
+
+        if (giaoVien.noiSinh === '') {
+            globalHandler.notify(notifyType.WARNING, 'Nơi Sinh Không Hợp Lệ')
+            return
+        }
+
+        if (giaoVien.email === '') {
+            globalHandler.notify(notifyType.WARNING, 'Email Không Hợp Lệ')
+            return
+        }
+
+        if (giaoVien.danToc === '') {
+            globalHandler.notify(notifyType.WARNING, 'Dân Tộc Không Hợp Lệ')
+            return
+        }
+        if (giaoVien.gioiTinh === '') {
+            globalHandler.notify(notifyType.WARNING, 'Giới Tính Không Hợp Lệ')
+            return
+        }
+        if (giaoVien.diaChi === '') {
+            globalHandler.notify(notifyType.WARNING, 'Địa Chỉ Không Hợp Lệ')
+            return
+        }
+        if (!giaoVien.khoa || giaoVien.khoa.maKhoa === '') {
+            globalHandler.notify(notifyType.WARNING, 'Khoa Không Hợp Lệ')
+            return
+        }
+
         globalHandler.notify(notifyType.LOADING, "Đang Tạo Giáo Viên")
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.POST, body: giaoVien, path: '/giaovien' })
             .then(res => {

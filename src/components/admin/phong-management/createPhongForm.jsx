@@ -11,6 +11,10 @@ const CreatePhongForm = ({ visible }) => {
     const [tenPhong, setTenPhong] = useState('')
 
     const handleCreatePhong = () => {
+        if (tenPhong === '') {
+            globalHandler.notify(notifyType.WARNING, 'Tên Phòng Không Hợp Lệ')
+            return
+        }
         const body = { tenPhong }
         globalHandler.notify(notifyType.LOADING, "Đang Tạo Phòng Đào Tạo")
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.POST, body, path: '/phong' })

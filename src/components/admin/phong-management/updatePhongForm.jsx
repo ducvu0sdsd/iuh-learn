@@ -18,6 +18,10 @@ const UpdatePhongForm = ({ data }) => {
     }, [data])
 
     const handleCreatePhong = () => {
+        if (tenPhong === '') {
+            globalHandler.notify(notifyType.WARNING, 'Tên Phòng Không Hợp Lệ')
+            return
+        }
         const body = phong
         globalHandler.notify(notifyType.LOADING, "Cập nhật Phòng Đào Tạo")
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.POST, body, path: '/phong/update' })

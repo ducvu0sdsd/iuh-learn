@@ -8,11 +8,7 @@ const UpdateMonHocForm = ({ data }) => {
     const [dsChuyenNganh, setDsChuyenNganh] = useState([])
     const { adminHandler } = useContext(adminContext)
     const { globalHandler } = useContext(globalContext)
-    const [maChuyenNganh, setMaChuyenNganh] = useState()
-    const [tenMonHoc, setTenMonHoc] = useState('')
-    const [soTinChi, setSoTinChi] = useState('')
-    const [soTietLT, setSoTietLT] = useState('')
-    const [soTietTH, setSoTietTH] = useState('')
+
     const [monHoc, setMonHoc] = useState({
         tenMonHoc: '',
         soTinChi: '',
@@ -26,14 +22,29 @@ const UpdateMonHocForm = ({ data }) => {
         }
     }, [data])
     const handleUpdateMonHoc = () => {
-        const body = {
-            tenMon: tenMonHoc,
-            soTinChi,
-            soTietLyThuyet: soTietLT,
-            soTietThucHanh: soTietTH,
-            chuyenNganh: {
-                maChuyenNganh
-            }
+        if (monHoc.tenMonHoc === '') {
+            globalHandler.notify(notifyType.WARNING, 'Tên Môn Học Không Hợp Lệ')
+            return
+        }
+
+        if (monHoc.soTinChi === '') {
+            globalHandler.notify(notifyType.WARNING, 'Số Tín Chỉ Không Hợp Lệ')
+            return
+        }
+
+        if (monHoc.soTietLT === '') {
+            globalHandler.notify(notifyType.WARNING, 'Số Tiết Lý Thuyết Không Hợp Lệ')
+            return
+        }
+
+        if (monHoc.soTietTH === '') {
+            globalHandler.notify(notifyType.WARNING, 'Số Tiết Thực Hành Không Hợp Lệ')
+            return
+        }
+
+        if (monHoc.chuyenNganh === "" || monHoc.chuyenNganh.maChuyenNganh === '') {
+            globalHandler.notify(notifyType.WARNING, 'Chuyên Ngành Không Hợp Lệ')
+            return
         }
         globalHandler.notify(notifyType.LOADING, "Cập nhật Tạo Môn Học")
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.POST, body: monHoc, path: '/monhoc/update' })

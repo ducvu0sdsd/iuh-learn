@@ -23,6 +23,15 @@ const UpdateHeDaoTaoForm = ({ data }) => {
     }, [data])
 
     const handleUpdateHeDaoTao = () => {
+        if (heDaoTao.tenHeDaoTao === '') {
+            globalHandler.notify(notifyType.WARNING, 'Tên Hệ Đào Tạo Không Hợp Lệ')
+            return
+        }
+
+        if (!/[0-9]{6,}/.test(heDaoTao.giaTien + "") || Number(heDaoTao.giaTien + "") < 0) {
+            globalHandler.notify(notifyType.WARNING, 'Giá Tiền Không Hợp Lệ')
+            return
+        }
 
         globalHandler.notify(notifyType.LOADING, "Đang Cập nhật Hệ Đào Tạo")
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.POST, body: heDaoTao, path: '/hedaotao/update' })

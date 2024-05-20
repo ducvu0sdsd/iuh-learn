@@ -11,6 +11,10 @@ const CreateHocKyForm = ({ visible }) => {
     const [choPhepDangKy, setChoPhepDangKy] = useState(false)
 
     const handleCreateHocKy = () => {
+        if (tenHocKy === '') {
+            globalHandler.notify(notifyType.WARNING, 'Tên Học Kỳ Không Hợp Lệ')
+            return
+        }
         const body = {
             tenHocKy,
             choPhepDangKy

@@ -33,15 +33,18 @@ const UpdateLopForm = ({ data }) => {
     }, [])
 
     const handleUpdateLop = () => {
-        // const body = {
-        //     tenLop,
-        //     heDaoTao: {
-        //         maHeDaoTao
-        //     },
-        //     chuyenNganh: {
-        //         maChuyenNganh
-        //     }
-        // }
+        if (lop.tenLop === '') {
+            globalHandler.notify(notifyType.WARNING, 'Tên Lớp không hợp lệ')
+            return
+        }
+        if (!lop.chuyenNganh || lop.chuyenNganh.maChuyenNganh === '') {
+            globalHandler.notify(notifyType.WARNING, 'Chuyên Ngành Không Hợp Lệ')
+            return
+        }
+        if (!lop.heDaoTao || lop.heDaoTao.maHeDaoTao === '') {
+            globalHandler.notify(notifyType.WARNING, 'Hệ Đào Tạo Không Hợp Lệ')
+            return
+        }
         globalHandler.notify(notifyType.LOADING, "Cập nhật Tạo Lớp Học")
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.POST, body: lop, path: '/lop/update' })
             .then(res => {

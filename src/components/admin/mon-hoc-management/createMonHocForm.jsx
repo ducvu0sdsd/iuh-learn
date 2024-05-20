@@ -8,13 +8,39 @@ const CreateMonHocForm = ({ visible }) => {
     const [dsChuyenNganh, setDsChuyenNganh] = useState([])
     const { adminHandler } = useContext(adminContext)
     const { globalHandler } = useContext(globalContext)
-    const [maChuyenNganh, setMaChuyenNganh] = useState()
+    const [maChuyenNganh, setMaChuyenNganh] = useState('')
     const [tenMonHoc, setTenMonHoc] = useState('')
     const [soTinChi, setSoTinChi] = useState('')
     const [soTietLT, setSoTietLT] = useState('')
     const [soTietTH, setSoTietTH] = useState('')
 
     const handleCreateMonHoc = () => {
+
+        if (tenMonHoc === '') {
+            globalHandler.notify(notifyType.WARNING, 'Tên Môn Học Không Hợp Lệ')
+            return
+        }
+
+        if (soTinChi === '') {
+            globalHandler.notify(notifyType.WARNING, 'Số Tín Chỉ Không Hợp Lệ')
+            return
+        }
+
+        if (soTietLT === '') {
+            globalHandler.notify(notifyType.WARNING, 'Số Tiết Lý Thuyết Không Hợp Lệ')
+            return
+        }
+
+        if (soTietTH === '') {
+            globalHandler.notify(notifyType.WARNING, 'Số Tiết Thực Hành Không Hợp Lệ')
+            return
+        }
+
+        if (maChuyenNganh === '') {
+            globalHandler.notify(notifyType.WARNING, 'Chuyên Ngành Không Hợp Lệ')
+            return
+        }
+
         const body = {
             tenMon: tenMonHoc,
             soTinChi,
@@ -55,7 +81,7 @@ const CreateMonHocForm = ({ visible }) => {
                 <input value={soTietTH} onChange={e => setSoTietTH(e.target.value)} placeholder='Số Tiết Thực Hành' className='w-[45%] text-[14px] focus:outline-0 px-[10px] h-[35px] border-[#c1c1c1] border-[1px] rounded-md' />
             </div>
             <div className='flex justify-evenly mb-1'>
-                <select onChange={e => setMaChuyenNganh(e.target.value)} className='w-[45%] text-[14px] focus:outline-0 px-[10px] h-[35px] border-[#c1c1c1] border-[1px] rounded-md'>
+                <select value={maChuyenNganh} onChange={e => setMaChuyenNganh(e.target.value)} className='w-[45%] text-[14px] focus:outline-0 px-[10px] h-[35px] border-[#c1c1c1] border-[1px] rounded-md'>
                     <option value=''>Chuyên Ngành</option>
                     {dsChuyenNganh.map((chuyenNganh, index) => (
                         <option value={chuyenNganh.maChuyenNganh} key={index}>{chuyenNganh.tenChuyenNganh}</option>

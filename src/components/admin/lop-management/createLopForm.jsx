@@ -25,6 +25,20 @@ const CreateLopForm = ({ visible }) => {
     }, [])
 
     const handleCreateLop = () => {
+
+        if (tenLop === '') {
+            globalHandler.notify(notifyType.WARNING, 'Tên Lớp không hợp lệ')
+            return
+        }
+        if (!maChuyenNganh || maChuyenNganh === '') {
+            globalHandler.notify(notifyType.WARNING, 'Chuyên Ngành Không Hợp Lệ')
+            return
+        }
+        if (!maHeDaoTao || maHeDaoTao === '') {
+            globalHandler.notify(notifyType.WARNING, 'Hệ Đào Tạo Không Hợp Lệ')
+            return
+        }
+
         const body = {
             tenLop,
             siSo: 0,

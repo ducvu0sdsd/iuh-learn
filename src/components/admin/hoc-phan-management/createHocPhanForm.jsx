@@ -132,8 +132,6 @@ const CreateHocPhanForm = ({ visible }) => {
             tietThucHanh.push(tietThucHanhNhom3)
         }
 
-        // kiemTraPhongTrung([...tietThucHanh, tietLyThuyet], dkhpData.dsHocPhan)
-        // return
         globalHandler.notify(notifyType.LOADING, "Đang Tạo Học Phần")
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.POST, body: hocPhan, path: '/hocphan' })
             .then(res => {

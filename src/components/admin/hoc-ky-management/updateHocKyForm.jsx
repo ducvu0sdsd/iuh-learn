@@ -18,6 +18,11 @@ const UpdateHocKyForm = ({ data }) => {
 
     const handleUpdateHocKy = () => {
 
+        if (hocKy.tenHocKy === '') {
+            globalHandler.notify(notifyType.WARNING, 'Tên Học Kỳ Không Hợp Lệ')
+            return
+        }
+
         globalHandler.notify(notifyType.LOADING, "Cập nhật Tạo Học Kỳ")
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.POST, body: hocKy, path: '/hocky/update' })
             .then(res => {
