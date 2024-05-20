@@ -19,6 +19,14 @@ const CreateChuyenNganhForm = ({ visible }) => {
     }, [])
 
     const handleCreateChuyenNganh = () => {
+        if (tenChuyenNganh === '') {
+            globalHandler.notify(notifyType.WARNING, 'Tên Chuyên Ngành Không Hợp Lệ')
+            return
+        }
+        if (maKhoa === '') {
+            globalHandler.notify(notifyType.WARNING, 'Khoa Không Hợp Lệ')
+            return
+        }
         const body = {
             tenChuyenNganh,
             khoa: {

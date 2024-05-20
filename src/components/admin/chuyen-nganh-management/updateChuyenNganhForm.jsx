@@ -8,8 +8,6 @@ const UpdateChuyenNganhForm = ({ data }) => {
     const [dsKhoa, setDsKhoa] = useState([])
     const { adminHandler } = useContext(adminContext)
     const { globalHandler } = useContext(globalContext)
-    const [tenChuyenNganh, setTenChuyenNganh] = useState('')
-    const [maKhoa, setMaKhoa] = useState('')
     const [chuyenNganh, setChuyenNganh] = useState({
         tenChuyenNganh: '',
         khoa: ''
@@ -28,7 +26,14 @@ const UpdateChuyenNganhForm = ({ data }) => {
     }, [])
 
     const handleUpdateChuyenNganh = () => {
-
+        if (chuyenNganh.tenChuyenNganh === '') {
+            globalHandler.notify(notifyType.WARNING, 'Tên Chuyên Ngành Không Hợp Lệ')
+            return
+        }
+        if (chuyenNganh.khoa === '' || chuyenNganh.khoa.maKhoa === '') {
+            globalHandler.notify(notifyType.WARNING, 'Khoa Không Hợp Lệ')
+            return
+        }
         globalHandler.notify(notifyType.LOADING, "Cập nhật Chuyên Ngành")
         api({ port: ports.otherServiceURL, sendToken: true, type: TypeHTTP.POST, body: chuyenNganh, path: '/chuyennganh/update' })
             .then(res => {
